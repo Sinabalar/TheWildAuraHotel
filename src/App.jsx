@@ -9,9 +9,11 @@ export default function App() {
         <>
             <GlobalStyles/>
             <StyledApp>
-                <Heading>The Wild Aura</Heading>
+                <Heading as={"h1"}>The Wild Aura</Heading>
+                <Heading as={"h2"}>Check in and out</Heading>
                 <Button onClick={() => alert('checked in')}>Check in</Button>
                 <Button onClick={() => alert('checked out')}>Check out</Button>
+                <Heading as={"h3"}>Form</Heading>
                 <Input type={"number"} placeholder={"number of guests"}/>
             </StyledApp>
         </>
