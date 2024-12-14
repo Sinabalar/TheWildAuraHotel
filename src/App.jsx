@@ -1,42 +1,34 @@
+import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
+import Dashboard from "./pages/Dashboard.jsx";
+import Bookings from "./pages/Bookings.jsx";
+import Cabins from "./pages/Cabins.jsx";
+import Users from "./pages/Users.jsx";
+import Settings from "./pages/Settings.jsx";
+import Account from "./pages/Account.jsx";
+import Login from "./pages/Login.jsx";
+import PageNotFound from "./pages/PageNotFound.jsx";
 import GlobalStyles from "./styles/globalStyles.js";
-import Button from ".././src/ui/Button.jsx";
-import Heading from "./ui/Heading.jsx";
-import Input from "./ui/Input.jsx";
-import StyledApp from "./ui/StyledApp.jsx";
-import Row from "./ui/Row.jsx";
 
 export default function App() {
     return (
         <>
             <GlobalStyles/>
-            <StyledApp>
-                <Row>
+            <BrowserRouter>
+                <Routes>
 
-                    <Row type={"horizontal"}>
+                    <Route index element={<Navigate replace to={"dashboard"}/>}/>
 
-                        <Heading as={"h1"}>The Wild Aura</Heading>
-                        <div>
+                    <Route path={"dashboard"} element={<Dashboard/>}/>
+                    <Route path={"bookings"} element={<Bookings/>}/>
+                    <Route path={"cabins"} element={<Cabins/>}/>
+                    <Route path={"users"} element={<Users/>}/>
+                    <Route path={"settings"} element={<Settings/>}/>
+                    <Route path={"account"} element={<Account/>}/>
+                    <Route path={"login"} element={<Login/>}/>
+                    <Route path={"*"} element={<PageNotFound/>}/>
 
-                            <Heading as={"h2"}>Check in and out</Heading>
-                            <Button
-                                onClick={() => alert('checked in')}
-                            >Check in</Button>
-                            <Button
-                                size={"small"}
-                                variation={"secondary"}
-                                onClick={() => alert('checked out')}>Check out</Button>
-                        </div>
-                    </Row>
-                    <Row>
-
-                        <form>
-                            <Heading as={"h3"}>Form</Heading>
-                            <Input type={"number"} placeholder={"number of guests"}/>
-                            <Input type={"number"} placeholder={"number of guests"}/>
-                        </form>
-                    </Row>
-                </Row>
-            </StyledApp>
+                </Routes>
+            </BrowserRouter>
         </>
     );
 }
