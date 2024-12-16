@@ -6,10 +6,11 @@ import {getCabins} from "../services/apiCabins.js";
 function Cabins() {
 
     useEffect(() => {
-        async function fetchCabins(){
+        async function fetchCabins() {
             const data = await getCabins()
             console.log(data);
         }
+
         fetchCabins()
     }, []);
 
@@ -17,6 +18,7 @@ function Cabins() {
         <Row type="horizontal">
             <Heading as="h1">All cabins</Heading>
             <p>TEST</p>
+            <img src={"https://vfjozfvszkimunhgluxt.supabase.co/storage/v1/object/public/cabin-images/cabin-001.jpg"}/>
         </Row>
     );
 }
