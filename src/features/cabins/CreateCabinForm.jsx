@@ -1,7 +1,4 @@
 import {useForm} from "react-hook-form";
-import toast from "react-hot-toast";
-import {createAndEditCabin} from "../../services/apiCabins.js";
-import {useMutation} from "@tanstack/react-query";
 
 import Input from "../../ui/Input";
 import Form from "../../ui/Form";
@@ -43,10 +40,9 @@ export default function CreateCabinForm({cabinToEdit = {}, handleShowCreateForm 
 
         } else {
             createCabin({...data, image: data.image[0]}, {
-                onSuccess: (data) => {
+                onSuccess: () => {
                     reset()
                     handleShowCreateForm()
-                    console.log(data);
                 }
             })
         }
