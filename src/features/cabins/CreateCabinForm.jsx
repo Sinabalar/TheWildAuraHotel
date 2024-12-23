@@ -122,7 +122,7 @@ export default function CreateCabinForm({cabinToEdit = {}}) {
                 <Textarea type="number" id="description" defaultValue="" {...register(
                     "description", {
                         required: "This field is required"
-                    })} disabled={isProcessing}/>
+                    })}/>
             </FormRow>
 
             <FormRow label={"Image"} error={errors}>
