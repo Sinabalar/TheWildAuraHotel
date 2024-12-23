@@ -13,7 +13,7 @@ import {formatCurrency} from "../../utils/helpers.js";
 import {useCreateCabin} from "./useCreateCabin.js";
 import {useEditCabin} from "./useEditCabin.js";
 
-export default function CreateCabinForm({cabinToEdit = {}}) {
+export default function CreateCabinForm({cabinToEdit = {}, handleShowCreateForm = {}, handleShowEditForm = {}}) {
 
     const {id: editId, ...editValues} = cabinToEdit
     const isEditForm = Boolean(editId)
@@ -35,10 +35,20 @@ export default function CreateCabinForm({cabinToEdit = {}}) {
             : data.image[0]
 
         if (isEditForm) {
-            editCabin({newCabinData: {...data, image}, id: editId})
+            editCabin({newCabinData: {...data, image}, id: editId}, {
+                onSuccess: () => {
+                    handleShowEditForm()
+                }
+            })
 
         } else {
-            createCabin({...data, image: data.image[0]})
+            createCabin({...data, image: data.image[0]}, {
+                onSuccess: (data) => {
+                    reset()
+                    handleShowCreateForm()
+                    console.log(data);
+                }
+            })
         }
 
     }

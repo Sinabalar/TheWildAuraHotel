@@ -9,6 +9,10 @@ function Cabins() {
 
     const [showForm, setShowForm] = useState(false)
 
+    function handleShowForm() {
+        setShowForm(show => !show)
+    }
+
     return (
         <>
             <Row type="horizontal">
@@ -17,9 +21,9 @@ function Cabins() {
             </Row>
             <Row>
                 <CabinTable/>
-                <Button onClick={() => setShowForm(curr => !curr)}>{showForm?"Close form":"Add new cabin"}</Button>
+                <Button onClick={handleShowForm}>{showForm ? "Close form" : "Add new cabin"}</Button>
 
-                {showForm && <CreateCabinForm/>}
+                {showForm && <CreateCabinForm handleShowCreateForm={handleShowForm}/>}
 
             </Row>
         </>

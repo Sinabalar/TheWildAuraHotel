@@ -51,6 +51,10 @@ export default function CabinRow({cabin}) {
     const [showForm, setShowForm] = useState(false)
     const {deleteCabin, isDeleting} = useDeleteCabin()
 
+    function handleShowForm() {
+        setShowForm((show) => !show)
+    }
+
     const {
         id: cabinId,
         name,
@@ -74,7 +78,7 @@ export default function CabinRow({cabin}) {
                     : <span>&mdash;</span>}
                 <div>
                     <button
-                        onClick={() => setShowForm((show) => !show)}
+                        onClick={handleShowForm}
                     >{showForm ? "Close editing" : "Edit"}
                     </button>
                     <button
@@ -84,7 +88,12 @@ export default function CabinRow({cabin}) {
                     </button>
                 </div>
             </TableRow>
-            {showForm && <CreateCabinForm cabinToEdit={cabin}/>}
+            {
+                showForm && <CreateCabinForm
+                    cabinToEdit={cabin}
+                    handleShowEditForm={handleShowForm}
+                />
+            }
         </>
     );
 }
