@@ -100,7 +100,7 @@ export default function MainNav() {
                 </li>
                 <li>
                     <StyledNavLink
-                        to={"/setting"}
+                        to={"/settings"}
                     >
                         <HiOutlineCog6Tooth/>
                         <span>
