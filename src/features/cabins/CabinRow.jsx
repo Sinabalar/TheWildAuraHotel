@@ -5,6 +5,10 @@ import styled from "styled-components";
 import {formatCurrency} from "../../utils/helpers.js";
 import CreateCabinForm from "./CreateCabinForm.jsx";
 import {useDeleteCabin} from "./useDeleteCabins.js";
+import {HiOutlineSquare2Stack, HiSquare2Stack} from "react-icons/hi2";
+import {HiOutlinePencil, HiOutlineTrash, HiOutlineX, HiPencil} from "react-icons/hi";
+import {useCreateCabin} from "./useCreateCabin.js";
+import SpinnerMini from "../../ui/SpinnerMini.jsx";
 
 const TableRow = styled.div`
     display: grid;
@@ -50,10 +54,7 @@ export default function CabinRow({cabin}) {
 
     const [showForm, setShowForm] = useState(false)
     const {deleteCabin, isDeleting} = useDeleteCabin()
-
-    function handleShowForm() {
-        setShowForm((show) => !show)
-    }
+    const {isCreating, createCabin: duplicateCabin} = useCreateCabin()
 
     const {
         id: cabinId,
@@ -64,6 +65,21 @@ export default function CabinRow({cabin}) {
         description,
         image
     } = cabin
+
+    function handleShowForm() {
+        setShowForm((show) => !show)
+    }
+
+    function handleDuplicate() {
+        duplicateCabin({
+            name: `Copy of ${name}`,
+            maxCapacity,
+            regularPrice,
+            discount,
+            description,
+            image
+        })
+    }
 
 
     return (
@@ -78,13 +94,17 @@ export default function CabinRow({cabin}) {
                     : <span>&mdash;</span>}
                 <div>
                     <button
+                        onClick={handleDuplicate}
+                        disabled={isCreating}
+                    >{isCreating ? <SpinnerMini/> : <HiOutlineSquare2Stack/>}</button>
+                    <button
                         onClick={handleShowForm}
-                    >{showForm ? "Close editing" : "Edit"}
+                    >{showForm ? <HiOutlineX/> : <HiOutlinePencil/>}
                     </button>
                     <button
                         onClick={() => deleteCabin(cabinId)}
                         disabled={isDeleting}
-                    >{isDeleting ? "Deleting..." : "Delete"}
+                    >{isDeleting ? <SpinnerMini/> : <HiOutlineTrash/>}
                     </button>
                 </div>
             </TableRow>
