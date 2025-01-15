@@ -5,8 +5,8 @@ import styled from "styled-components";
 import {formatCurrency} from "../../utils/helpers.js";
 import CreateCabinForm from "./CreateCabinForm.jsx";
 import {useDeleteCabin} from "./useDeleteCabins.js";
-import {HiOutlineSquare2Stack, HiSquare2Stack} from "react-icons/hi2";
-import {HiOutlinePencil, HiOutlineTrash, HiOutlineX, HiPencil} from "react-icons/hi";
+import {HiOutlineSquare2Stack} from "react-icons/hi2";
+import {HiOutlinePencil, HiOutlineTrash, HiOutlineX} from "react-icons/hi";
 import {useCreateCabin} from "./useCreateCabin.js";
 import SpinnerMini from "../../ui/SpinnerMini.jsx";
 
@@ -15,7 +15,7 @@ const TableRow = styled.div`
     grid-template-columns: 0.6fr 1.8fr 2.2fr 1fr 1fr 1fr;
     column-gap: 2.4rem;
     align-items: center;
-    padding: 1.4rem 2.4rem;
+    padding: 1.8rem 3.4rem;
 
     &:not(:last-child) {
         border-bottom: 1px solid var(--color-grey-100);

@@ -5,7 +5,6 @@ export async function getCabins() {
     const {data, error} = await supabase
         .from('cabins')
         .select('*')
-
     if (error) {
         console.error(error)
         throw new Error('cabins could not be loaded')
@@ -60,7 +59,7 @@ export async function createAndEditCabin(newCabin, id) {
 
     //Upload cabinImage
 
-    if (imagePath) return data
+    if (hasImagePath) return data
 
     const {error: storageError} = await supabase
         .storage
@@ -76,7 +75,6 @@ export async function createAndEditCabin(newCabin, id) {
         console.error(storageError)
         throw new Error('cabins could not be uploaded and the cabin was not created.')
     }
-
 
     return data
 
