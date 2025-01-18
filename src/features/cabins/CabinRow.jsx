@@ -9,6 +9,7 @@ import {useCreateCabin} from "./useCreateCabin.js";
 import SpinnerMini from "../../ui/SpinnerMini.jsx";
 import ButtonGroup from "../../ui/ButtonGroup.jsx";
 import Modal from "../../ui/Modal.jsx";
+import ConfirmDelete from "../../ui/ConfirmDelete.jsx";
 
 const TableRow = styled.div`
     display: grid;
@@ -104,12 +105,20 @@ export default function CabinRow({cabin}) {
                                 cabinToEdit={cabin}
                             />
                         </Modal.Window>
+
+                        <Modal.Open opens={"cabin-delete-form"}>
+                            <button
+                            >{isDeleting ? <SpinnerMini/> : <HiOutlineTrash/>}
+                            </button>
+                        </Modal.Open>
+                        <Modal.Window name={"cabin-delete-form"}>
+                            <ConfirmDelete
+                                resourceName={"cabins"}
+                                disabled={isDeleting}
+                                onConfirm={() => deleteCabin(cabinId)}
+                            />
+                        </Modal.Window>
                     </Modal>
-                    <button
-                        onClick={() => deleteCabin(cabinId)}
-                        disabled={isDeleting}
-                    >{isDeleting ? <SpinnerMini/> : <HiOutlineTrash/>}
-                    </button>
                 </ButtonGroup>
             </TableRow>
         </>
