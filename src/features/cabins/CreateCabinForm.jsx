@@ -54,7 +54,7 @@ export default function CreateCabinForm({cabinToEdit = {}, handleShowCreateForm,
     }
 
     return (
-        <Form onSubmit={handleSubmit(onSubmit, onError)}>
+        <Form onSubmit={handleSubmit(onSubmit, onError)} type={handleShowCreateForm ? "modal" : "regular"}>
 
             <FormRow
                 label={"Cabin name"}
