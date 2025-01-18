@@ -1,14 +1,14 @@
-import {useState} from "react";
 import styled from "styled-components";
-
 
 import {formatCurrency} from "../../utils/helpers.js";
 import CreateCabinForm from "./CreateCabinForm.jsx";
 import {useDeleteCabin} from "./useDeleteCabins.js";
 import {HiOutlineSquare2Stack} from "react-icons/hi2";
-import {HiOutlinePencil, HiOutlineTrash, HiOutlineX} from "react-icons/hi";
+import {HiOutlinePencil, HiOutlineTrash} from "react-icons/hi";
 import {useCreateCabin} from "./useCreateCabin.js";
 import SpinnerMini from "../../ui/SpinnerMini.jsx";
+import ButtonGroup from "../../ui/ButtonGroup.jsx";
+import Modal from "../../ui/Modal.jsx";
 
 const TableRow = styled.div`
     display: grid;
@@ -52,7 +52,6 @@ const Discount = styled.div`
 
 export default function CabinRow({cabin}) {
 
-    const [showForm, setShowForm] = useState(false)
     const {deleteCabin, isDeleting} = useDeleteCabin()
     const {isCreating, createCabin: duplicateCabin} = useCreateCabin()
 
@@ -66,9 +65,6 @@ export default function CabinRow({cabin}) {
         image
     } = cabin
 
-    function handleShowForm() {
-        setShowForm((show) => !show)
-    }
 
     function handleDuplicate() {
         duplicateCabin({
@@ -92,28 +88,31 @@ export default function CabinRow({cabin}) {
                 {discount
                     ? <Discount>{formatCurrency(discount)}</Discount>
                     : <span>&mdash;</span>}
-                <div>
+                <ButtonGroup>
                     <button
                         onClick={handleDuplicate}
                         disabled={isCreating}
                     >{isCreating ? <SpinnerMini/> : <HiOutlineSquare2Stack/>}</button>
-                    <button
-                        onClick={handleShowForm}
-                    >{showForm ? <HiOutlineX/> : <HiOutlinePencil/>}
-                    </button>
+                    <Modal>
+                        <Modal.Open opens={"edit-cabin-form"}>
+                            <button
+                            >{<HiOutlinePencil/>}
+                            </button>
+                        </Modal.Open>
+                        <Modal.Window name={"edit-cabin-form"}>
+                            <CreateCabinForm
+                                cabinToEdit={cabin}
+                            />
+                        </Modal.Window>
+                    </Modal>
                     <button
                         onClick={() => deleteCabin(cabinId)}
                         disabled={isDeleting}
                     >{isDeleting ? <SpinnerMini/> : <HiOutlineTrash/>}
                     </button>
-                </div>
+                </ButtonGroup>
             </TableRow>
-            {
-                showForm && <CreateCabinForm
-                    cabinToEdit={cabin}
-                    handleShowEditForm={handleShowForm}
-                />
-            }
         </>
-    );
+    )
+        ;
 }

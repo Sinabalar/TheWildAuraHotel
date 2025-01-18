@@ -10,7 +10,7 @@ import {formatCurrency} from "../../utils/helpers.js";
 import {useCreateCabin} from "./useCreateCabin.js";
 import {useEditCabin} from "./useEditCabin.js";
 
-export default function CreateCabinForm({cabinToEdit = {}, handleShowCreateForm, handleShowEditForm}) {
+export default function CreateCabinForm({cabinToEdit = {}, handleCloseForm}) {
 
     const {id: editId, ...editValues} = cabinToEdit
     const isEditForm = Boolean(editId)
@@ -34,7 +34,7 @@ export default function CreateCabinForm({cabinToEdit = {}, handleShowCreateForm,
         if (isEditForm) {
             editCabin({newCabinData: {...data, image}, id: editId}, {
                 onSuccess: () => {
-                    handleShowEditForm()
+                    handleCloseForm?.()
                 }
             })
 
@@ -42,7 +42,7 @@ export default function CreateCabinForm({cabinToEdit = {}, handleShowCreateForm,
             createCabin({...data, image: data.image[0]}, {
                 onSuccess: () => {
                     reset()
-                    handleShowCreateForm ? handleShowCreateForm() : handleShowEditForm()
+                    handleCloseForm?.()
                 }
             })
         }
@@ -54,7 +54,7 @@ export default function CreateCabinForm({cabinToEdit = {}, handleShowCreateForm,
     }
 
     return (
-        <Form onSubmit={handleSubmit(onSubmit, onError)} type={handleShowCreateForm ? "modal" : "regular"}>
+        <Form onSubmit={handleSubmit(onSubmit, onError)} type={handleCloseForm ? "modal" : "regular"}>
 
             <FormRow
                 label={"Cabin name"}
@@ -120,7 +120,7 @@ export default function CreateCabinForm({cabinToEdit = {}, handleShowCreateForm,
                 <Button
                     variation="secondary"
                     type="reset"
-                    onClick={() => (handleShowCreateForm && handleShowCreateForm()) || (handleShowEditForm && handleShowEditForm())}
+                    onClick={() => (handleCloseForm?.())}
                 >
                     Cancel
                 </Button>
