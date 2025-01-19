@@ -81,49 +81,46 @@ export default function CabinRow({cabin}) {
                     ? <Discount>{formatCurrency(discount)}</Discount>
                     : <span>&mdash;</span>}
                 <div>
-                    <button
-                        onClick={handleDuplicate}
-                        disabled={isCreating}
-                    >{isCreating ? <SpinnerMini/> : <HiOutlineSquare2Stack/>}
-                    </button>
+
+
                     <Modal>
-                        <Modal.Open opens={"edit-cabin-form"}>
-                            <button
-                            >{<HiOutlinePencil/>}
-                            </button>
-                        </Modal.Open>
-                        <Modal.Window name={"edit-cabin-form"}>
-                            <CreateCabinForm
-                                cabinToEdit={cabin}
-                            />
-                        </Modal.Window>
+                        <Menus.Menu>
+                            <Menus.Toggle id={cabinId}/>
 
-                        <Modal.Open opens={"cabin-delete-form"}>
-                            <button
-                            >{isDeleting ? <SpinnerMini/> : <HiOutlineTrash/>}
-                            </button>
-                        </Modal.Open>
-                        <Modal.Window name={"cabin-delete-form"}>
-                            <ConfirmDelete
-                                resourceName={"cabins"}
-                                disabled={isDeleting}
-                                onConfirm={() => deleteCabin(cabinId)}
-                            />
-                        </Modal.Window>
+                            <Menus.List id={cabinId}>
+                                <Menus.Button
+                                    icon={<HiOutlineSquare2Stack/>}
+                                    onClick={handleDuplicate}
+                                >Duplicate
+                                </Menus.Button>
+
+                                <Modal.Open opens={"edit-cabin-form"}>
+                                    <Menus.Button icon={<HiOutlinePencil/>}>Edit</Menus.Button>
+                                </Modal.Open>
+
+                                <Modal.Open opens={"cabin-delete-form"}>
+                                    <Menus.Button icon={<HiOutlineTrash/>}>Delete</Menus.Button>
+                                </Modal.Open>
+                            </Menus.List>
+
+
+                            <Modal.Window name={"edit-cabin-form"}>
+                                <CreateCabinForm
+                                    cabinToEdit={cabin}
+                                />
+                            </Modal.Window>
+
+                            <Modal.Window name={"cabin-delete-form"}>
+                                <ConfirmDelete
+                                    resourceName={"cabins"}
+                                    disabled={isDeleting}
+                                    onConfirm={() => deleteCabin(cabinId)}
+                                />
+                            </Modal.Window>
+                        </Menus.Menu>
                     </Modal>
-                    <Menus.Menu>
-                        <Menus.Toggle id={cabinId}/>
 
-                        <Menus.List id={cabinId}>
-                            <Menus.Button
-                                icon={<HiOutlineSquare2Stack/>}
-                                onClick={handleDuplicate}
-                            >Duplicate
-                            </Menus.Button>
-                            <Menus.Button icon={<HiOutlinePencil/>}>Edit</Menus.Button>
-                            <Menus.Button icon={<HiOutlineTrash/>}>Delete</Menus.Button>
-                        </Menus.List>
-                    </Menus.Menu>
+
                 </div>
             </Table.Row>
         </>
