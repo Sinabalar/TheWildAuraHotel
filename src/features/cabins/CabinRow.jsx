@@ -11,6 +11,7 @@ import ButtonGroup from "../../ui/ButtonGroup.jsx";
 import Modal from "../../ui/Modal.jsx";
 import ConfirmDelete from "../../ui/ConfirmDelete.jsx";
 import Table from "../../ui/Table.jsx";
+import Menus from "../../ui/Menus.jsx";
 
 
 const Img = styled.img`
@@ -79,7 +80,7 @@ export default function CabinRow({cabin}) {
                 {discount
                     ? <Discount>{formatCurrency(discount)}</Discount>
                     : <span>&mdash;</span>}
-                <ButtonGroup>
+                <div>
                     <button
                         onClick={handleDuplicate}
                         disabled={isCreating}
@@ -109,7 +110,16 @@ export default function CabinRow({cabin}) {
                             />
                         </Modal.Window>
                     </Modal>
-                </ButtonGroup>
+                    <Menus.Menu>
+                        <Menus.Toggle id={cabinId}/>
+
+                        <Menus.List id={cabinId}>
+                            <Menus.Button>Duplicate</Menus.Button>
+                            <Menus.Button>Edit</Menus.Button>
+                            <Menus.Button>Delete</Menus.Button>
+                        </Menus.List>
+                    </Menus.Menu>
+                </div>
             </Table.Row>
         </>
     )

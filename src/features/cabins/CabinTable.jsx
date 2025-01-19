@@ -3,6 +3,7 @@ import Spinner from "../../ui/Spinner.jsx";
 import CabinRow from "./CabinRow.jsx";
 import {useFetchCabins} from "./useFetchCabins.js";
 import Table from "../../ui/Table.jsx";
+import Menus from "../../ui/Menus.jsx";
 
 
 const TableHeader = styled.header`
@@ -27,7 +28,7 @@ export default function CabinTable() {
     if (isLoading) return <Spinner/>
 
     return (
-        <div>
+        <Menus>
             <Table columns={"0.6fr 1.8fr 2.2fr 1fr 1fr 1fr"}>
                 <Table.Header role="row">
                     <div></div>
@@ -39,6 +40,6 @@ export default function CabinTable() {
                 </Table.Header>
                 <Table.Body data={cabins} render={el => <CabinRow key={el.id} cabin={el}/>}/>
             </Table>
-        </div>
+        </Menus>
     );
 }
