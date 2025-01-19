@@ -84,7 +84,8 @@ export default function CabinRow({cabin}) {
                     <button
                         onClick={handleDuplicate}
                         disabled={isCreating}
-                    >{isCreating ? <SpinnerMini/> : <HiOutlineSquare2Stack/>}</button>
+                    >{isCreating ? <SpinnerMini/> : <HiOutlineSquare2Stack/>}
+                    </button>
                     <Modal>
                         <Modal.Open opens={"edit-cabin-form"}>
                             <button
@@ -114,9 +115,13 @@ export default function CabinRow({cabin}) {
                         <Menus.Toggle id={cabinId}/>
 
                         <Menus.List id={cabinId}>
-                            <Menus.Button>Duplicate</Menus.Button>
-                            <Menus.Button>Edit</Menus.Button>
-                            <Menus.Button>Delete</Menus.Button>
+                            <Menus.Button
+                                icon={<HiOutlineSquare2Stack/>}
+                                onClick={handleDuplicate}
+                            >Duplicate
+                            </Menus.Button>
+                            <Menus.Button icon={<HiOutlinePencil/>}>Edit</Menus.Button>
+                            <Menus.Button icon={<HiOutlineTrash/>}>Delete</Menus.Button>
                         </Menus.List>
                     </Menus.Menu>
                 </div>
