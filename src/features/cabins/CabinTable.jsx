@@ -8,24 +8,38 @@ import {useSearchParams} from "react-router-dom";
 export default function CabinTable() {
 
     const {isLoading, cabins, error} = useFetchCabins();
-
     const [searchParams] = useSearchParams();
+
+
+    //Filter
     const filterValue = searchParams.get("discount") || "all";
-    let filteredCabins;
+    let filteredCabins = [];  // Initialize with empty array
     switch (filterValue) {
         case "all":
-            filteredCabins = cabins;
+            filteredCabins = cabins || [];
             break;
         case "no-discount":
-            filteredCabins = cabins?.filter((el) => el.discount === 0);
+            filteredCabins = cabins ? cabins.filter((el) => el.discount === 0) : [];
             break;
         case "with-discount":
-            filteredCabins = cabins?.filter((el) => el.discount !== 0);
+            filteredCabins = cabins ? cabins.filter((el) => el.discount !== 0) : [];
             break;
         default:
-            filteredCabins = cabins;
+            filteredCabins = cabins || [];
     }
 
+    // Sort
+
+    const sortBy = searchParams.get("sort-by") || "created_at-asc";
+    const [field, direction] = sortBy.split('-');
+    const modifier = direction === "asc" ? 1 : -1;
+    const sortedCabins = filteredCabins.sort((a, b) => {
+        if (typeof a[field] === 'string') {
+            return a[field].localeCompare(b[field]) * modifier;
+        }
+        // For numerical values
+        return (a[field] - b[field]) * modifier;
+    })
     if (isLoading) return <Spinner/>
 
     return (
@@ -39,7 +53,7 @@ export default function CabinTable() {
                     <div>Discount</div>
                     <div></div>
                 </Table.Header>
-                <Table.Body data={filteredCabins} render={el => <CabinRow key={el.id} cabin={el}/>}/>
+                <Table.Body data={sortedCabins} render={el => <CabinRow key={el.id} cabin={el}/>}/>
             </Table>
         </Menus>
     );
