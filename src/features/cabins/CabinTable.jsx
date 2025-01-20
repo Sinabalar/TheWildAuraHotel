@@ -17,10 +17,10 @@ export default function CabinTable() {
             filteredCabins = cabins;
             break;
         case "no-discount":
-            filteredCabins = cabins.filter((el) => el.discount === 0);
+            filteredCabins = cabins?.filter((el) => el.discount === 0);
             break;
         case "with-discount":
-            filteredCabins = cabins.filter((el) => el.discount !== 0);
+            filteredCabins = cabins?.filter((el) => el.discount !== 0);
             break;
         default:
             filteredCabins = cabins;
