@@ -4,6 +4,7 @@ import {useFetchCabins} from "./useFetchCabins.js";
 import Table from "../../ui/Table.jsx";
 import Menus from "../../ui/Menus.jsx";
 import {useSearchParams} from "react-router-dom";
+import Empty from "../../ui/Empty.jsx";
 
 export default function CabinTable() {
 
@@ -13,7 +14,7 @@ export default function CabinTable() {
 
     //Filter
     const filterValue = searchParams.get("discount") || "all";
-    let filteredCabins = [];  // Initialize with empty array
+    let filteredCabins = [];
     switch (filterValue) {
         case "all":
             filteredCabins = cabins || [];
@@ -37,9 +38,12 @@ export default function CabinTable() {
         if (typeof a[field] === 'string') {
             return a[field].localeCompare(b[field]) * modifier;
         }
-        // For numerical values
+
         return (a[field] - b[field]) * modifier;
     })
+
+
+    if (!cabins?.length) return <Empty resourceName={"cabins"}/>
     if (isLoading) return <Spinner/>
 
     return (
