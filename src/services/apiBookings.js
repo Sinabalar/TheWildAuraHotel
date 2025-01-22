@@ -10,8 +10,14 @@ export async function getBookings({filter, sortBy}) {
             "id,created_at,startDate,endDate,numNights,numGuests,status,totalPrice,cabins!bookings_cabinID_fkey(name),guests!bookings_guestID_fkey(fullName,email)"
         );
 
-    if (filter !== null) {
+    // filter
+    if (filter) {
         query = query.eq(filter.field, filter.value);
+    }
+
+    //sort
+    if (sortBy) {
+        query = query.order(sortBy.field, {ascending: sortBy.direction === "asc"})
     }
 
 
