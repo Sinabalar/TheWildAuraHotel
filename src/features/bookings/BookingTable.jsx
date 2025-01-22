@@ -4,6 +4,7 @@ import Menus from "../../ui/Menus";
 import Empty from "../../ui/Empty.jsx";
 import {useFetchBookings} from "./useFetchBookings.js";
 import Spinner from "../../ui/Spinner.jsx";
+import Pagination from "../../ui/Pagination.jsx";
 
 function BookingTable() {
     const {bookings, isLoading, error} = useFetchBookings();
@@ -29,6 +30,9 @@ function BookingTable() {
                         <BookingRow key={booking.id} booking={booking}/>
                     )}
                 />
+                <Table.Footer>
+                    <Pagination count={bookings.length}/>
+                </Table.Footer>
             </Table>
         </Menus>
     );
