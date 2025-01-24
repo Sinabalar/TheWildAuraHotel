@@ -42,7 +42,7 @@ export async function getBookings({filter, sortBy, page}) {
 export async function getBooking(id) {
     const {data, error} = await supabase
         .from("bookings")
-        .select("*, cabins(*), guests(*)")
+        .select("*, cabins!bookings_cabinID_fkey(*), guests!bookings_guestID_fkey(*)")
         .eq("id", id)
         .single();
 
