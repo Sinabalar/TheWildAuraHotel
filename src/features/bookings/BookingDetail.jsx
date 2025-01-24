@@ -10,8 +10,10 @@ import ButtonText from "../../ui/ButtonText";
 
 import {useMoveBack} from "../../hooks/useMoveBack";
 import {useFetchBooking} from "./useFetchBooking.js";
-import {useSearchParams} from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
 import Spinner from "../../ui/Spinner.jsx";
+import Menus from "../../ui/Menus.jsx";
+import {HiArrowDownOnSquare} from "react-icons/hi2";
 
 const HeadingGroup = styled.div`
     display: flex;
@@ -22,10 +24,13 @@ const HeadingGroup = styled.div`
 function BookingDetail() {
 
     const {booking, isLoading} = useFetchBooking();
-
-    const {status, id:bookingId} = booking || ""
-
     const moveBack = useMoveBack();
+    const navigate = useNavigate();
+
+    if (isLoading) return <Spinner/>
+
+    const {status, id: bookingId} = booking;
+
 
     const statusToTagName = {
         unconfirmed: "blue",
@@ -33,7 +38,6 @@ function BookingDetail() {
         "checked-out": "silver",
     };
 
-    if (isLoading) return <Spinner/>
 
     return (
         <>
@@ -45,9 +49,19 @@ function BookingDetail() {
                 <ButtonText onClick={moveBack}>&larr; Back</ButtonText>
             </Row>
 
-            <BookingDataBox booking={booking} />
+            <BookingDataBox booking={booking}/>
 
             <ButtonGroup>
+
+                {
+                    status === "unconfirmed" &&
+                    <Button
+                        onClick={() => navigate(`/bookings/${bookingId}`)}
+                    >
+                        Check in
+                    </Button>
+                }
+
                 <Button variation="secondary" onClick={moveBack}>
                     Back
                 </Button>
