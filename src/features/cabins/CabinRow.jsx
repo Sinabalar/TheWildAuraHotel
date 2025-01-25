@@ -112,7 +112,7 @@ export default function CabinRow({cabin}) {
 
                             <Modal.Window name={"cabin-delete-form"}>
                                 <ConfirmDelete
-                                    resourceName={"cabins"}
+                                    resourceName={"cabin"}
                                     disabled={isDeleting}
                                     onConfirm={() => deleteCabin(cabinId)}
                                 />
