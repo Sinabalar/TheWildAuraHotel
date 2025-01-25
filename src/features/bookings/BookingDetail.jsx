@@ -10,11 +10,13 @@ import ButtonText from "../../ui/ButtonText";
 
 import {useMoveBack} from "../../hooks/useMoveBack";
 import {useFetchBooking} from "./useFetchBooking.js";
-import {useNavigate, useSearchParams} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import Spinner from "../../ui/Spinner.jsx";
-import Menus from "../../ui/Menus.jsx";
-import {HiArrowDownOnSquare, HiArrowUpOnSquare} from "react-icons/hi2";
+import {HiArrowUpOnSquare} from "react-icons/hi2";
 import {useCheckout} from "../check-in-out/useCheckout.js";
+import Modal from "../../ui/Modal.jsx";
+import ConfirmDelete from "../../ui/ConfirmDelete.jsx";
+import {useDeleteBooking} from "./useDeleteBooking.js";
 
 const HeadingGroup = styled.div`
     display: flex;
@@ -26,6 +28,7 @@ function BookingDetail() {
 
     const {booking, isLoading} = useFetchBooking();
     const {checkOut, isCheckingOut} = useCheckout();
+    const {deleteBookingFn, isDeleting} = useDeleteBooking();
     const moveBack = useMoveBack();
     const navigate = useNavigate();
 
@@ -55,6 +58,23 @@ function BookingDetail() {
 
             <ButtonGroup>
 
+                <Modal>
+                    <Modal.Open opens={"book-delete-form"}>
+                        <Button variation={"danger"}>Delete</Button>
+                    </Modal.Open>
+                    <Modal.Window name={"book-delete-form"}>
+                        <ConfirmDelete
+                            resourceName={"booking"}
+                            onConfirm={() => deleteBookingFn(bookingId, {
+                                onSuccess: () => {
+                                    navigate(-1)
+                                }
+                            })}
+                            disabled={isDeleting}
+                        />
+                    </Modal.Window>
+                </Modal>
+
                 {
                     status === "unconfirmed" &&
                     <Button
@@ -74,7 +94,6 @@ function BookingDetail() {
                         Check out
                     </Button>
                 }
-
 
                 <Button variation="secondary" onClick={moveBack}>
                     Back
