@@ -13,7 +13,8 @@ import {useFetchBooking} from "./useFetchBooking.js";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import Spinner from "../../ui/Spinner.jsx";
 import Menus from "../../ui/Menus.jsx";
-import {HiArrowDownOnSquare} from "react-icons/hi2";
+import {HiArrowDownOnSquare, HiArrowUpOnSquare} from "react-icons/hi2";
+import {useCheckout} from "../check-in-out/useCheckout.js";
 
 const HeadingGroup = styled.div`
     display: flex;
@@ -24,6 +25,7 @@ const HeadingGroup = styled.div`
 function BookingDetail() {
 
     const {booking, isLoading} = useFetchBooking();
+    const {checkOut, isCheckingOut} = useCheckout();
     const moveBack = useMoveBack();
     const navigate = useNavigate();
 
@@ -61,6 +63,18 @@ function BookingDetail() {
                         Check in
                     </Button>
                 }
+
+                {
+                    status === "checked-in" &&
+                    <Button
+                        icon={<HiArrowUpOnSquare/>}
+                        disabled={isCheckingOut}
+                        onClick={() => checkOut(bookingId)}
+                    >
+                        Check out
+                    </Button>
+                }
+
 
                 <Button variation="secondary" onClick={moveBack}>
                     Back
