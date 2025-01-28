@@ -14,6 +14,7 @@ export async function login({email, password}) {
 }
 
 export async function getCurrUser() {
+
     const {data: session} = await supabase.auth.getSession();
 
     if (!session.session) return null;
@@ -26,4 +27,9 @@ export async function getCurrUser() {
         throw new Error(err.message);
     }
     return data?.user
+}
+
+export async function logOut() {
+    const {error} = await supabase.auth.signOut();
+    if (error) throw new Error(error.message);
 }

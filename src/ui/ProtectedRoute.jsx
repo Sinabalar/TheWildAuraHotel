@@ -5,7 +5,7 @@ import {useNavigate} from "react-router-dom";
 import {useEffect} from "react";
 
 
-const Fullpage = styled.div`
+const FullPage = styled.div`
     height: 100vh;
     background-color: var(--colo-grey-50);
     display: flex;
@@ -22,7 +22,7 @@ export default function ProtectedRoute({children}) {
         if (!isAuthenticated && !isLoading) navigate("/login");
     }, [isAuthenticated, isLoading, navigate]);
 
-    if (isLoading) return <Fullpage><Spinner/></Fullpage>
+    if (isLoading) return <FullPage><Spinner/></FullPage>
 
     if (isAuthenticated) return children;
 }
