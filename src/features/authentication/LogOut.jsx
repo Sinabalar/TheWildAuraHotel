@@ -9,8 +9,11 @@ export default function LogOut() {
 
 
     return (
-        <ButtonIcon disabled={isLogingOut} onClick={logOutFn}>
-            {isLogingOut ? <SpinnerMini/> : <HiArrowRightOnRectangle/>}
-        </ButtonIcon>
+        <>
+            <span>Logout</span>
+            <ButtonIcon disabled={isLogingOut} onClick={logOutFn}>
+                {isLogingOut ? <SpinnerMini/> : <HiArrowRightOnRectangle/>}
+            </ButtonIcon>
+        </>
     );
 }
