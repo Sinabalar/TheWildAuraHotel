@@ -39,7 +39,7 @@ export async function getCurrUser() {
 
     const {data, err} = await supabase.auth.getUser();
 
-    console.log(data);
+    // console.log(data);
 
     if (err) {
         throw new Error(err.message);
