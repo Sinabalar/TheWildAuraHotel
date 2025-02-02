@@ -14,6 +14,6 @@ export function useFetchRecentBookings() {
         queryKey: ["bookings", `last-${numDays}`]
     })
 
-    return {bookings, isLoading}
+    return {bookings, isLoading, numDays}
 
 }
