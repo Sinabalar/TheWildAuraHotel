@@ -5,6 +5,7 @@ import {useFetchRecentStays} from "./useFetchRecentStays.js";
 import Stats from "./Stats.jsx";
 import {useFetchCabins} from "../cabins/useFetchCabins.js";
 import SalesChart from "./SalesChart.jsx";
+import DurationChart from "./DurationChart.jsx";
 
 const StyledDashboardLayout = styled.div`
     display: grid;
@@ -33,6 +34,7 @@ export default function DashboardLayout() {
             />
             <div>Today's activity</div>
             <div>Chart stay durations</div>
+            <DurationChart confirmedStays={conformedStays}/>
             <SalesChart bookings={bookings} numDays={numDays}/>
         </StyledDashboardLayout>
     );
