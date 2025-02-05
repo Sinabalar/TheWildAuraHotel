@@ -10,7 +10,7 @@ export function useCheckout() {
         },
         onSuccess: () => {
             toast.success("successfully checked out")
-            queryClient.invalidateQueries({active: true})
+            return queryClient.invalidateQueries({active: true})
         },
         onError: () => {
             toast.error("field to checked out")
