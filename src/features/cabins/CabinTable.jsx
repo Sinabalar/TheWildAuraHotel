@@ -8,7 +8,7 @@ import Empty from "../../ui/Empty.jsx";
 
 export default function CabinTable() {
 
-    const {isLoading, cabins, error} = useFetchCabins();
+    const {isLoading, cabins} = useFetchCabins();
     const [searchParams] = useSearchParams();
 
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from "styled-components";
-import LogOut from "../features/authentication/LogOut.jsx";
 import HeaderMenu from "./HeaderMenu.jsx";
 import UserAvatar from "../features/authentication/UserAvatar.jsx";
 

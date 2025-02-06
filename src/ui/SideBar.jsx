@@ -2,7 +2,6 @@ import React from 'react';
 import styled from "styled-components";
 import Logo from "./Logo.jsx";
 import MainNav from "./MainNav.jsx";
-import Uploader from "../data/Uploader.jsx";
 
 const StyledSideBar = styled.aside`
     background-color: var(--color-grey-0);

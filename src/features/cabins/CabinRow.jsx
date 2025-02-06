@@ -6,8 +6,6 @@ import {useDeleteCabin} from "./useDeleteCabins.js";
 import {HiOutlineSquare2Stack} from "react-icons/hi2";
 import {HiOutlinePencil, HiOutlineTrash} from "react-icons/hi";
 import {useCreateCabin} from "./useCreateCabin.js";
-import SpinnerMini from "../../ui/SpinnerMini.jsx";
-import ButtonGroup from "../../ui/ButtonGroup.jsx";
 import Modal from "../../ui/Modal.jsx";
 import ConfirmDelete from "../../ui/ConfirmDelete.jsx";
 import Table from "../../ui/Table.jsx";
@@ -45,7 +43,7 @@ const Discount = styled.div`
 export default function CabinRow({cabin}) {
 
     const {deleteCabin, isDeleting} = useDeleteCabin()
-    const {isCreating, createCabin: duplicateCabin} = useCreateCabin()
+    const {createCabin: duplicateCabin} = useCreateCabin()
 
     const {
         id: cabinId,

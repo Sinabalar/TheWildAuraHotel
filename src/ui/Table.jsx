@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {createContext, useContext, useState} from "react";
+import {createContext, useContext} from "react";
 
 const StyledTable = styled.div`
     border: 1px solid var(--color-grey-200);
@@ -35,10 +35,6 @@ const StyledRow = styled(CommonRow)`
     &:not(:last-child) {
         border-bottom: 1px solid var(--color-grey-100);
     }
-`;
-
-const StyledBody = styled.section`
-    margin: 0.4rem 0;
 `;
 
 const Footer = styled.footer`
